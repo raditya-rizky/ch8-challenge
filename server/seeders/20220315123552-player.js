@@ -25,7 +25,14 @@ module.exports = {
     ]);
   },
 
-  async down(queryInterface, _) {
-    await queryInterface.bulkDelete("Players", null, {});
+  async down(queryInterface, Sequelize) {
+    const Op = Sequelize.Op;
+
+    await queryInterface.bulkDelete("Players", {
+      [Op.or]: [
+        { username: "PussySlayer613" },
+        { username: "HardcoreLevellingWarrior" },
+      ],
+    });
   },
 };
