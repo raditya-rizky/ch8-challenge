@@ -1,7 +1,9 @@
 const express = require("express");
+const swaggerUI = require("swagger-ui-express");
 const app = express();
 const cors = require("cors");
 const apiRouter = require("./routes");
+const swaggerJSON = require("./docs/openapi.json");
 const errorHandler = require("./middlewares/errorHandler");
 const PORT = process.env.PORT || 4000;
 
@@ -10,6 +12,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(errorHandler);
+
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerJSON));
 
 /**
  * @Routes /api
