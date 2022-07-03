@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Player Controller",
-    "description": "Manipulate player data such as create, update, find, and delete player",
+    "description": "Manipulate player data such as create, update, find, and delete player and adding player experience",
     "version": "1.0.0"
   },
   "servers": [

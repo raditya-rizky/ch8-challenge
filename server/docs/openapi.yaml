@@ -1,25 +1,25 @@
 openapi: 3.0.1
 info:
-  title: 'Player Controller'
-  description: Manipulate player data such as create, update, find, and delete player
+  title: "Player Controller"
+  description: Manipulate player data such as create, update, find, and delete player  and adding player experience
   version: 1.0.0
-  
+
 servers:
   - url: /api/v1
     description: This is the main server
-    
+
 tags:
-- name: Player
-  description: Player resources
-  
+  - name: Player
+    description: Player resources
+
 paths:
   /players:
     summary: Represents all players
     description: This resource represents all players in the system
-    
+
     get:
       tags:
-      - Player
+        - Player
       operationId: getAllPlayers
       summary: List all players exist
       description: All players will be shown here
@@ -29,7 +29,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Player'
+                $ref: "#/components/schemas/Player"
               example:
                 result: Success
                 data:
@@ -49,11 +49,10 @@ paths:
                     lvl: 20
                     updatedAt: "2022-07-03T14:49:02.680Z"
                     createdAt: "2022-07-03T14:49:02.680Z"
-                
-                    
+
     post:
       tags:
-      - Player
+        - Player
       operationId: AddPlayer
       summary: Add new player
       description: Create a new player
@@ -84,7 +83,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Player'
+                $ref: "#/components/schemas/Player"
               example:
                 result: Success
                 data:
@@ -102,26 +101,24 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResponseSchema'
+                  - $ref: "#/components/schemas/ResponseSchema"
                 example:
                   result: Failed
                   message: password cannot be empty
-                  
-                  
-      
+
   /players/{id}:
-    parameters: 
+    parameters:
       - in: path
         name: id
-        schema: 
+        schema:
           type: integer
           minimum: 1
         required: true
         description: The player's ID
-        
+
     get:
       tags:
-      - Player
+        - Player
       operationId: getPlayerById
       summary: Find a player by ID
       description: Returns a specific player by ID
@@ -131,10 +128,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Player'
+                $ref: "#/components/schemas/Player"
               example:
-                 result: Success
-                 data:
+                result: Success
+                data:
                   - id: 1
                     username: PlayerOne
                     email: PlayerOne@email.com
@@ -149,15 +146,14 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResponseSchema'
+                  - $ref: "#/components/schemas/ResponseSchema"
                 example:
                   result: Not Found
                   message: Player with 19 not found
-                  
-                  
+
     put:
       tags:
-      - Player
+        - Player
       operationId: updatePlayerById
       summary: Edit player by ID
       description: Update a specific player
@@ -178,7 +174,7 @@ paths:
                   type: integer
                 lvl:
                   type: integer
-              example: 
+              example:
                 username: PlayerOne1
                 email: PlayerOne1@email.com
                 password: "098765"
@@ -192,36 +188,36 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResponseSchema'
+                  - $ref: "#/components/schemas/ResponseSchema"
                 example:
                   result: Success
                   message: "Player with id: 1 successfully updated"
-                    
+
         404:
           description: Player not found
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResponseSchema'
+                  - $ref: "#/components/schemas/ResponseSchema"
                 example:
                   result: Not Found
                   message: Player with 19 not found
-                  
+
         500:
           description: Unexpected error
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResponseSchema'
+                  - $ref: "#/components/schemas/ResponseSchema"
                 example:
                   result: failed
                   message: Failed to update
-          
+
     delete:
       tags:
-      - Player
+        - Player
       operationId: deletePlayerById
       summary: Delete player by ID
       description: Delete a specific player
@@ -232,35 +228,32 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResponseSchema'
+                  - $ref: "#/components/schemas/ResponseSchema"
                 example:
                   result: Success
                   message: "Player with id: 2, was deleted successfully"
-                
+
         400:
           description: Bad request or ID must be a number
           content:
-             application/json:
+            application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResponseSchema'
+                  - $ref: "#/components/schemas/ResponseSchema"
                 example:
                   result: FAILED
                   message: "Cannot delete Player with id=2. Maybe Player was not found!"
-   
-      
-      
-      
+
   /players/exp/{id}:
-    parameters: 
-        - in: path
-          name: id
-          schema: 
-            type: integer
-            minimum: 0
-          required: true
-          description: The player's ID
-          
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+          minimum: 0
+        required: true
+        description: The player's ID
+
     post:
       tags:
         - Player
@@ -276,7 +269,7 @@ paths:
               properties:
                 exp:
                   type: integer
-              example: 
+              example:
                 exp: 1000
         required: true
       responses:
@@ -284,9 +277,9 @@ paths:
           description: Successful operation
           content:
             application/json:
-               schema:
+              schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResponseSchema'
+                  - $ref: "#/components/schemas/ResponseSchema"
                 example:
                   result: Success
                   message: "Player with id = 2 gain 1000 experience. Total experience = 1000"
@@ -294,9 +287,9 @@ paths:
           description: Player not found
           content:
             application/json:
-               schema:
+              schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResponseSchema'
+                  - $ref: "#/components/schemas/ResponseSchema"
                 example:
                   result: Not found
                   message: Player with 19 not found
@@ -304,14 +297,13 @@ paths:
           description: Bad request. Exp cannot be empty or ID must be a number
           content:
             application/json:
-               schema:
+              schema:
                 allOf:
-                  - $ref: '#/components/schemas/ResponseSchema'
+                  - $ref: "#/components/schemas/ResponseSchema"
                 example:
                   result: FAILED
                   message: Exp field cannot be empty
-              
-        
+
 components:
   schemas:
     Player:
@@ -340,8 +332,7 @@ components:
                 type: string
               createdAt:
                 type: string
-                
-                
+
     ResponseSchema:
       type: object
       properties:
@@ -349,5 +340,3 @@ components:
           type: string
         message:
           type: string
-     
-      
